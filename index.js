@@ -56,11 +56,19 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
+function inning(){
 
-    /*Code Here*/
-
+    let score = Math.random() * 2;
+    score = Math.round(score);
+    return score;
 }
+
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
+console.log(inning());
 
 /* Task 3: finalScore()
 
@@ -76,11 +84,41 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inning, number){
+    // callback is inning function
+    // numbers 
+    let homeTeam = []; // home team score
+    let awayTeam = []; // away team score
 
-  /*Code Here*/
+    // need to generate a score per inning
+    // creating with keys Home and Away
+    let totalScores = {home:0, away: 0};
+    // need to generate a score per inning
+    for(let i=1; i <= number; i++) {
+      let homeScore = 0;
+      let awayScore = 0;
+      homeScore = inning();
+      awayScore = inning();
+      homeTeam.push(homeScore);
+      awayTeam.push(awayScore);
+    }
+    let finalHome = homeTeam.reduce((totalHome, score)=> {
+      return totalHome + score;
+    }, 0);
+    let finalAway = awayTeam.reduce((totalAway, score)=> {
+      return totalAway + score;
+    }, 0);
 
+    totalScores.home = finalHome;
+    totalScores.away = finalAway;
+
+    return totalScores;
+   
 }
+
+console.log(finalScore(inning, 9));
+
+
 
 /* Task 4: 
 
@@ -102,9 +140,31 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
-
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function getInningsScore(inning){
+  return { 
+    home:inning(), 
+    away:inning()
+  }
 }
+
+
+function scoreboard(getInningScore, inning, number) {
+  let homeScore = 0;
+  let awayScore = 0;
+  let scoreCard = [];
+  for(let i = 1; i <= number; i ++){
+        const currentInningScore = getInningScore(inning);
+        homeScore += currentInningScore.home;
+        awayScore += currentInningScore.away;
+        scoreCard.push(`${i} inning: ${currentInningScore.home} - ${currentInningScore.away}`)
+  }
+  if(homeScore === awayScore) {
+    scoreCard.push(`This game will require extra innings`);
+  } else {
+    return scoreCard.push(`Final Score Home: ${homeScore} - Away ${awayScore}`);
+  }
+  return scoreCard;
+}
+console.log(scoreboard(getInningsScore,inning, 9));
 
 
