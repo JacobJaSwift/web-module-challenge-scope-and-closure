@@ -28,10 +28,15 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * Counter 1 uses closure to change the the count variable and counter two does not.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * counter1 uses closure because it has a self initiating function that modifies it's parent variable count.
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *  
+ * counter1 would be preferred if you want to make an indepent counterMaker for a function or variable while counter2 would be perferred if you want to make a global count that keeps track of the overall count of something in your program.
 */
 
 // counter1 code
@@ -64,11 +69,7 @@ function inning(){
 }
 
 console.log(inning());
-console.log(inning());
-console.log(inning());
-console.log(inning());
-console.log(inning());
-console.log(inning());
+
 
 /* Task 3: finalScore()
 
